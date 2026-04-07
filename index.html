@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>portfolioHUB — Marcos Sergio Figueiredo Filho</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f8f6f2;
+    --accent: #2d6a4f;
+    --accent-light: #52b788;
+    --muted: #6b7280;
+    --border: #e5e0d8;
+    --card-bg: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  header {
+    background: var(--black);
+    color: var(--white);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    min-height: 340px;
+  }
+  .header-text {
+    padding: 52px 56px 52px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .portfolio-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .portfolio-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent-light);
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .header-bio {
+    font-size: 14.5px;
+    color: rgba(248,246,242,0.65);
+    max-width: 480px;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .header-contacts {
+    display: flex;
+    gap: 28px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    color: rgba(248,246,242,0.6);
+    text-decoration: none;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    transition: color .2s;
+  }
+  .contact-item:hover { color: var(--accent-light); }
+  .contact-item svg { opacity: .7; }
+  .header-photo {
+    background: #181818;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-left: 1px solid rgba(255,255,255,0.06);
+  }
+  .photo-placeholder {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 2px solid rgba(82,183,136,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .photo-placeholder svg { opacity: .35; }
+  .photo-placeholder span {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+  }
+  .course-badge {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Syne', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(248,246,242,0.4);
+    white-space: nowrap;
+    text-align: center;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 64px 40px; }
+  .section { margin-bottom: 72px; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 36px;
+    padding-bottom: 16px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .section-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-light);
+    letter-spacing: 0.12em;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.01em;
+  }
+  .cv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .cv-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+  }
+  .cv-block-full { grid-column: 1 / -1; }
+  .cv-block-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cv-block-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .cv-entry { margin-bottom: 20px; }
+  .cv-entry:last-child { margin-bottom: 0; }
+  .cv-entry-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .cv-entry-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .cv-tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #ecfdf5;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .skill-pill {
+    font-size: 12.5px;
+    padding: 5px 14px;
+    border-radius: 6px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    color: var(--black);
+    font-weight: 400;
+  }
+  .lang-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .lang-row:last-child { border-bottom: none; }
+  .lang-name { font-weight: 500; }
+  .lang-level {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .lang-dots { display: flex; gap: 4px; }
+  .lang-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .lang-dot.filled { background: var(--accent-light); }
+  .activities-list { list-style: none; }
+  .activities-list li {
+    padding: 8px 0 8px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #f0ece4;
+  }
+  .activities-list li:last-child { border-bottom: none; }
+  .activities-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-light);
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  }
+  .project-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--accent-light);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15.5px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--black);
+  }
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    flex: 1;
+  }
+  .project-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: #f0fdf4;
+    color: var(--accent);
+    border: 1px solid #bbf7d0;
+    align-self: flex-start;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .competencias-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .comp-card {
+    background: var(--black);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .comp-card:nth-child(2) { background: var(--accent); }
+  .comp-card:nth-child(5) { background: var(--accent); }
+  .comp-card::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .comp-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .comp-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .comp-desc {
+    font-size: 12px;
+    opacity: .6;
+    line-height: 1.5;
+  }
+  .rec-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 40px 48px;
+    display: flex;
+    gap: 36px;
+    align-items: flex-start;
+  }
+  .rec-quote-mark {
+    font-family: 'Syne', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    color: var(--border);
+    flex-shrink: 0;
+    margin-top: -10px;
+  }
+  .rec-text {
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: #444;
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 18px;
+  }
+  .rec-note {
+    font-size: 12.5px;
+    color: var(--muted);
+    padding: 10px 16px;
+    border-left: 2px solid var(--accent-light);
+    background: #f0fdf4;
+    border-radius: 0 6px 6px 0;
+    line-height: 1.6;
+  }
+  footer {
+    background: var(--black);
+    color: rgba(248,246,242,0.4);
+    text-align: center;
+    padding: 28px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+  footer span { color: var(--accent-light); }
+  @media print {
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .comp-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .project-card::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { font-size: 13px; }
+    main { padding: 32px 24px; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .competencias-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .header-inner { grid-template-columns: 1fr; }
+    .header-photo { display: none; }
+    h1 { font-size: 32px; }
+    .cv-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .competencias-grid { grid-template-columns: 1fr 1fr; }
+    main { padding: 40px 20px; }
+    .header-text { padding: 36px 24px; }
+    .rec-box { flex-direction: column; padding: 28px; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-text">
+      <div>
+        <div class="portfolio-label">portfolioHUB</div>
+        <h1>Marcos Sergio<br>Figueiredo Filho</h1>
+        <p class="header-bio">
+          Estudante de Análise e Desenvolvimento de Sistemas no CEUB, com interesse em tecnologia, desenvolvimento web e automação. Busco crescimento profissional por meio de projetos práticos e aprendizado contínuo.
+        </p>
+      </div>
+      <div class="header-contacts">
+        <a class="contact-item" href="mailto:maxsfigueiredo@gmail.com">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          maxsfigueiredo@gmail.com
+        </a>
+        <span class="contact-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Brasília – DF
+        </span>
+        <span class="contact-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github.com/m4rcossss
+        </span>
+      </div>
+    </div>
+    <div class="header-photo">
+      <div class="photo-placeholder">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24" color="white"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+        <span>Foto</span>
+      </div>
+      <div class="course-badge">ADS · CEUB · Brasília</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">Currículo</h2>
+    </div>
+    <div class="cv-grid">
+      <div class="cv-block">
+        <div class="cv-block-title">Formação Acadêmica</div>
+        <div class="cv-entry">
+          <div class="cv-entry-title">Análise e Desenvolvimento de Sistemas</div>
+          <div class="cv-entry-sub">CEUB — Centro Universitário de Brasília</div>
+          <span class="cv-tag">Em andamento</span>
+        </div>
+      </div>
+      <div class="cv-block">
+        <div class="cv-block-title">Idiomas</div>
+        <div class="lang-row">
+          <span class="lang-name">Português</span>
+          <div class="lang-level">
+            <span>Nativo / Fluente</span>
+            <div class="lang-dots">
+              <div class="lang-dot filled"></div>
+              <div class="lang-dot filled"></div>
+              <div class="lang-dot filled"></div>
+              <div class="lang-dot filled"></div>
+              <div class="lang-dot filled"></div>
+            </div>
+          </div>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">Inglês</span>
+          <div class="lang-level">
+            <span>Básico</span>
+            <div class="lang-dots">
+              <div class="lang-dot filled"></div>
+              <div class="lang-dot filled"></div>
+              <div class="lang-dot"></div>
+              <div class="lang-dot"></div>
+              <div class="lang-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-block cv-block-full">
+        <div class="cv-block-title">Experiência Profissional</div>
+        <div class="cv-entry">
+          <div class="cv-entry-title">Vendas e Atendimento ao Cliente</div>
+          <div class="cv-entry-sub">Instrumental e Tal — Taguatinga Norte, Brasília · Atual</div>
+          <ul class="activities-list" style="margin-top:12px;">
+            <li>Atendimento direto ao cliente na loja física</li>
+            <li>Organização de produtos e do ambiente comercial</li>
+            <li>Apresentação e demonstração de instrumentos musicais</li>
+            <li>Venda de produtos e negociação com clientes</li>
+            <li>Auxílio na otimização de vendas e estratégias comerciais</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cv-block">
+        <div class="cv-block-title">Habilidades Técnicas</div>
+        <div class="skills-list">
+          <span class="skill-pill">Criação de sites</span>
+          <span class="skill-pill">Noções de HTML</span>
+          <span class="skill-pill">Automação com IA</span>
+          <span class="skill-pill">Otimização de vendas</span>
+          <span class="skill-pill">Microsoft Word</span>
+          <span class="skill-pill">GIT / GitHub</span>
+        </div>
+      </div>
+      <div class="cv-block">
+        <div class="cv-block-title">Habilidades Pessoais</div>
+        <div class="skills-list">
+          <span class="skill-pill">Boa comunicação</span>
+          <span class="skill-pill">Aprendizado rápido</span>
+          <span class="skill-pill">Organização</span>
+          <span class="skill-pill">Proatividade</span>
+          <span class="skill-pill">Relacionamento interpessoal</span>
+          <span class="skill-pill">Negociação</span>
+          <span class="skill-pill">Planejamento</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Projetos Acadêmicos e Profissionais</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="project-num">Projeto 01</span>
+        <div class="project-title">Site para Empresa de Pescas</div>
+        <p class="project-desc">Projeto desenvolvido na faculdade. Criei um site e ajudei na organização e processo de vendas da empresa, aplicando conhecimentos adquiridos no curso.</p>
+        <span class="project-tag">Web · Vendas</span>
+      </div>
+      <div class="project-card">
+        <span class="project-num">Projeto 02</span>
+        <div class="project-title">Site Instrumental e Tal</div>
+        <p class="project-desc">Desenvolvimento do site institucional da loja de instrumentos musicais, com foco em organização de conteúdo, experiência do usuário e aumento de vendas digitais.</p>
+        <span class="project-tag">Web · E-commerce</span>
+      </div>
+      <div class="project-card">
+        <span class="project-num">Projeto 03</span>
+        <div class="project-title">Agente de Inteligência Artificial</div>
+        <p class="project-desc">Ainda em desenvolvimento. A ideia é criar um agente de IA para executar tarefas específicas, automatizando etapas e facilitando processos.</p>
+        <span class="project-tag">IA · Automação</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Habilidades e Competências</h2>
+    </div>
+    <div class="competencias-grid">
+      <div class="comp-card">
+        <div class="comp-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="comp-name">Comunicação</div>
+        <div class="comp-desc">Facilidade de diálogo com clientes e colegas em diferentes contextos.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="comp-name">Tecnologia</div>
+        <div class="comp-desc">Criação de sites, automação com IA e aprendizado contínuo em desenvolvimento.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="comp-name">Organização</div>
+        <div class="comp-desc">Planejamento de tarefas, gestão do ambiente e cumprimento de prazos.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="comp-name">Vendas</div>
+        <div class="comp-desc">Negociação, apresentação de produtos e estratégias para conversão de clientes.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="comp-name">Aprendizado Rápido</div>
+        <div class="comp-desc">Adaptação a novas ferramentas e tecnologias com velocidade e autonomia.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="comp-name">Criação de Sites</div>
+        <div class="comp-desc">Desenvolvimento de páginas web funcionais para empresas e projetos acadêmicos.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <div class="comp-name">Relacionamento</div>
+        <div class="comp-desc">Bom convívio em equipe, empatia e proatividade no ambiente de trabalho.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="comp-name">Proatividade</div>
+        <div class="comp-desc">Iniciativa para identificar oportunidades de melhoria e agir sem esperar ser solicitado.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Recomendações e Testemunhos</h2>
+    </div>
+    <div class="rec-box">
+      <div class="rec-quote-mark">"</div>
+      <div>
+        <p class="rec-text">
+          Ainda não tenho recomendações formais registradas neste portfólio. Estou no início da minha trajetória e quero construir isso com o tempo, conforme for crescendo na área — seja no CEUB ou na Instrumental e Tal.
+        </p>
+        <div class="rec-note">
+          📌 Esta seção será atualizada conforme referências de professores, supervisores ou colegas forem formalizadas. Sinta-se à vontade para entrar em contato pelo e-mail <strong>maxsfigueiredo@gmail.com</strong>.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>portfolioHUB</span> · Marcos Sergio Figueiredo Filho · ADS · CEUB · Brasília-DF · 2026
+</footer>
+
+</body>
+</html>
